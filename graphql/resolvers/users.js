@@ -3,9 +3,9 @@ const bcrypt = require('bcryptjs');                     // Hashing algorithm to 
 const { UserInputError } = require('apollo-server');    // GraphQL built-in error handler
 
 // 0.2. Declaring all file imports
-const { validateRegisterInput, validateLoginInput} = require('../../util/validators.js');     // Validate user inputs
-const { generateToken } = require('../../util/generateToken.js');     // Generate Login Token for user
-const User = require('../../models/User.js')    // User schema for querying data from MongoDB
+const { validateRegisterInput, validateLoginInput} = require('../../util/validators.js');   // Validate user inputs
+const { generateToken } = require('../../util/generateToken.js');   // Generate Login Token for valid users
+const User = require('../../models/User.js')
 
 // 1. Details to be exported
 module.exports = {

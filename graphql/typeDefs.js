@@ -31,14 +31,18 @@ module.exports = gql`
     }
 
     # 1.3. Define all Services
-    # 1.3.1. Define all Query (GET methods)
-    type Query{
-        getPosts: [Post]
-    }
+        # 1.3.1. Define all Query (GET methods)
+        type Query{
+            getPosts: [Post]
+            getPost(postId: ID!): Post
+        }
 
-    # 1.3.2. Define all Mutation (non-GET methods)
-    type Mutation{
-        register(registerInput: RegisterInput): User!
-        login(username: String!, password: String!): User!
-    }
+        # 1.3.2. Define all Mutation (non-GET methods)
+        type Mutation{
+            register(registerInput: RegisterInput): User!
+            login(username: String!, password: String!): User!
+
+            createPost(body: String!): Post!
+            deletePost(postId: ID!): String!
+        }
 `

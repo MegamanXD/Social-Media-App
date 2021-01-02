@@ -13,7 +13,8 @@ module.exports = {
     },
     // 1.2. Define all Mutation (non-GET methods)
     Mutation: {
-        ...userResolvers.Mutation   // ... means import everything from userResolvers.Mutation
+        ...userResolvers.Mutation,
+        ...postResolvers.Mutation
     }
 }
 
