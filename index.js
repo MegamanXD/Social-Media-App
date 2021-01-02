@@ -4,11 +4,15 @@ const mongoose = require('mongoose');               // MongoDB connection
 
 // 0.2. Declaring all file imports
 const { DATABASE_URL } = require('./config.js')     // Hides sensitive data in another file to improve security
-const typeDefs = require('./graphql/typeDefs.js')   // Load all schemas for GraphQL
-const resolvers = require('./graphql/resolvers/allResolvers.js')    // Load all resolvers for GraphQL
+const typeDefs = require('./graphql/typeDefs.js')   // Load all Schemas for GraphQL
+const resolvers = require('./graphql/resolvers/allResolvers.js')    // Load all Resolvers for GraphQL
 
-// 1. Define how each Service/Querie operates behind the scene
-const server = new ApolloServer( {typeDefs,resolvers} )
+// 1. Define how GraphQL Apollo server works
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ( {req} ) => ( {req} )  // Forward the ExpressJS requests to GraphQL 
+})
 
 // 2. Connect to MongoDB Atlas Server
 const MongoClientSettings = {
