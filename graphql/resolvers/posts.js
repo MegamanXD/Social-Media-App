@@ -1,5 +1,5 @@
 // 0.1. Declaring all dependency imports
-const { AuthenticationError } = require('apollo-server');           // GraphQL built-in error handler
+const { AuthenticationError, UserInputError } = require('apollo-server');   // GraphQL built-in error handler
 
 // 0.2. Declaring all file imports
 const Post = require('../../models/Post.js')
@@ -34,7 +34,7 @@ module.exports = {
         }
     },
 
-    // 1.1. Define all Mutation (non-GET methods)
+    // 1.2. Define all Mutation (non-GET methods)
     Mutation: {
       //Create post
       async createPost(_, { body }, context) {
@@ -50,6 +50,7 @@ module.exports = {
         });
   
         const savedPost = await newPost.save();
+        context.pubsub.publish('NEW_POST', { newPost: savedPost } );   // Publish new post to subscribers
   
         return savedPost;
       },
@@ -70,6 +71,36 @@ module.exports = {
         catch (err) {
           throw new Error(err);
         }
+      },
+
+      // Like post
+      async likePost(_, { postId }, context) {
+        const { username } = checkAuthenticated(context);
+  
+        const post = await Post.findById(postId);
+        if (post) {
+          // If post is already liked, unlike it
+          if (post.likes.find( (like) => like.username === username) ) {
+            post.likes = post.likes.filter( (like) => like.username !== username );
+          }
+          // If post is not liked, like it
+          else {
+            post.likes.push({
+              username,
+              createdAt: new Date().toISOString()
+            });
+          }
+  
+          await post.save();
+          return post;
+        } else throw new UserInputError('Post not found');
+      }
+    },
+
+    // 1.3. Define all Subscription
+    Subscription: {
+      newPost: {
+        subscribe: (_, __, { pubsub } ) => pubsub.asyncIterator('NEW_POST')
       }
     }
 }
