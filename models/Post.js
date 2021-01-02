@@ -1,5 +1,10 @@
+// 0.1. Declaring all dependency imports
 const { model, Schema } = require('mongoose');
 
+// 0.2. Declaring all file imports
+    // None
+
+// 1. Define Post schema for MongoDB
 const postSchema = new Schema({
     body: String,
     username: String,
@@ -26,4 +31,6 @@ const postSchema = new Schema({
     ]
 });
 
+// 2. Export Post schema
+// Note: This is MongoDB Schema, not GraphQL Schema
 module.exports = model('Post', postSchema)
