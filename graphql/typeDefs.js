@@ -12,6 +12,12 @@ module.exports = gql`
         body: String!,
         createdAt: String!,
         username: String!
+        comments: [Comment]!
+        likes: [Like]!
+
+        # For statistics
+        likeCount: Int!
+        commentCount: Int!
     }
 
     type User{
@@ -22,7 +28,20 @@ module.exports = gql`
         createdAt: String!
     }
 
-    # 1.2. Define all Input schemas
+    # 1.2. Define all side schemas
+    type Comment {
+        id: ID!
+        createdAt: String!
+        username: String!
+        body: String!
+    }
+    
+    type Like {
+        id: ID!
+        createdAt: String!
+        username: String!
+    }
+
     input RegisterInput{
         username: String!,
         password: String!,
@@ -44,5 +63,14 @@ module.exports = gql`
 
             createPost(body: String!): Post!
             deletePost(postId: ID!): String!
+            likePost(postId: ID!): Post!
+
+            createComment(postId: String!, body: String!): Post!
+            deleteComment(postId: ID!, commentId: ID!): Post!
+        }
+
+        # 1.3.3. Define all Subscription
+        type Subscription {
+            newPost: Post!
         }
 `
