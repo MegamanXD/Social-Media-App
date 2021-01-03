@@ -7,7 +7,7 @@ This app consists of 2 main components: GraphQL backend, and ReactJS frontend. <
 
 ## 2. GraphQL backend
 This is how it works: <br>
-index.js <br>
+- index.js <br>
     - config.js                (Sensitive info) <br>
     - typeDefs.js              (GraphQL schemas) <br><br>
     - allResolvers.js          (GraphQL services) <br>
