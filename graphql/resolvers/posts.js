@@ -9,29 +9,30 @@ const checkAuthenticated = require('../../util/check-authenticated.js');
 module.exports = {
     // 1.1. Define all Query (GET methods)
     Query: {
-        // Get all posts
-        async getPosts(){
-            try{
-                let posts = await Post.find()                      // Find all Posts from MongoDB
-                                      .sort({createdAt: -1});;     // Sort to show all newly-created posts at the top
-                return posts;
-            } catch (error) {
-                throw new Error(error);
-            }
-        },
-
-        // Get 1 specific post by ID
-        async getPost(_, { postId }) {
-            try{
-              const post = await Post.findById(postId);
-
-              if (post) { return post; }
-              else      { throw new Error('Post not found'); }
-            }
-            catch (err){
-              throw new Error(err);
-            }
+      // Get all posts
+      async getPosts(){
+        try{
+          let posts = await Post.find()                      // Find all Posts from MongoDB
+                                .sort({createdAt: -1});;     // Sort to show all newly-created posts at the top
+          return posts;
         }
+        catch (error) {
+          throw new Error(error);
+        }
+      },
+
+      // Get 1 specific post by ID
+      async getPost(_, { postId }) {
+        try{
+          const post = await Post.findById(postId);
+
+          if (post) { return post; }
+          else      { throw new Error('Post not found'); }
+        }
+        catch (err){
+          throw new Error(err);
+        }
+      }
     },
 
     // 1.2. Define all Mutation (non-GET methods)
@@ -39,18 +40,22 @@ module.exports = {
       //Create post
       async createPost(_, { body }, context) {
         const user = checkAuthenticated(context);
-  
+
+        // Check if post body is empty
         if (body.trim() === '') { throw new Error('Post body must not be empty'); }
-  
+
+        // If it's not empty, save the new post in the database
         const newPost = new Post({
           body,
           user: user.id,
           username: user.username,
           createdAt: new Date().toISOString()
         });
-  
+
         const savedPost = await newPost.save();
-        context.pubsub.publish('NEW_POST', { newPost: savedPost } );   // Publish new post to subscribers
+
+        // Publish the new post to subscribers
+        context.pubsub.publish('NEW_POST', { newPost: savedPost } );
   
         return savedPost;
       },
@@ -62,12 +67,15 @@ module.exports = {
         try {
           const post = await Post.findById(postId);
 
+          // If post author is the current user, delete the post
           if (user.username === post.username){
             await post.delete();
             return 'Post deleted successfully';
           }
+          // If post author is not the current user, block the delete request
           else { throw new AuthenticationError('Action not allowed'); }
         }
+        // If the post cannot be found, inform the Developers
         catch (err) {
           throw new Error(err);
         }
@@ -85,15 +93,16 @@ module.exports = {
           }
           // If post is not liked, like it
           else {
-            post.likes.push({
-              username,
-              createdAt: new Date().toISOString()
-            });
+            post.likes.push( { username, createdAt: new Date().toISOString() } );
           }
-  
+
+          // Update the post
           await post.save();
+
           return post;
-        } else throw new UserInputError('Post not found');
+        } 
+        // If the post cannot be found, inform the Developers
+        else throw new UserInputError('Post not found');
       }
     },
 

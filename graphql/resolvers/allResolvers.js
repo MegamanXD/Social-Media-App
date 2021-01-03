@@ -20,7 +20,7 @@ module.exports = {
     },
     // 1.3. Define all Subscription
     Subscription: {
-      ...postsResolvers.Subscription
+      ...postResolvers.Subscription
     },
     // 1.4. Define all Other stuff
     Post: {
