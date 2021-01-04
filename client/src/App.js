@@ -24,7 +24,7 @@ function App() {
         <MenuBar />
 
         {/* The body is loaded according to which page you are at */}
-        <Route exact path="/" component={Home} />
+        <Route exact path="/home" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
 
