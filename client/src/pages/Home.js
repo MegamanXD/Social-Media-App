@@ -1,8 +1,11 @@
 // 0.1. Declaring all dependency imports
 import React from 'react'
 
-// 1. Define how the website looks like
 function Home() {
+    // 1. Pre-processing
+        // None
+    
+    // 2. Define how the component looks like
     return (
         <div>
             <h1>Home page</h1>
@@ -10,5 +13,5 @@ function Home() {
     )
 }
 
-// 2. Export the component for later use
+// 3. Export the component for later use
 export default Home;
