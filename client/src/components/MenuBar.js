@@ -17,7 +17,7 @@ function MenuBar() {
   class MenuItem extends React.Component {
     render() {
       const itemName = this.props.itemName; // Access itemName from class properties (props)
-      const pathName = "/".concat(itemName)
+      const pathName = "/".concat(itemName) // pathName = /itemName
 
       return (
         <Menu.Item
