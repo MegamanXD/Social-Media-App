@@ -24,3 +24,12 @@ This is how it works: <br>
 
 ## 3. ReactJS frontend
 
+## 4. Notable errors
+- [Error: "getPosts" defined in resolvers, but not in schema]
+    - You declared your queries incorrectly
+        - Wrong: module.exports = { ...postResolvers.Query }
+        - Correct: module.exports = { Query: {...postResolvers.Query} }
+
+- POST http://localhost:5000/ 400 (Bad Request)
+    - This means the Query declared in your Service has a typo
+

@@ -1,23 +1,26 @@
 import gql from 'graphql-tag';
 
-export const GET_POST = gql`
-    query($postId: ID!) {
-        getPost(postId: $postId) {
+export const GET_ALL_POST = gql`
+    query {
+        getPosts {
             id
             body
             createdAt
             username
-            likeCount
-            likes {
-                username 
-            }
-            commentCount
+
             comments {
                 id
                 username
                 createdAt
                 body
             }
+
+            likes {
+                username 
+            }
+
+            likeCount
+            commentCount
         }
     }
 `;

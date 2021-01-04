@@ -28,10 +28,3 @@ module.exports = {
         commentCount: (parent) => parent.comments.length
     }
 }
-
-// [Error: "getPosts" defined in resolvers, but not in schema]
-// You get this error because you typed declared your queries incorrectly, like this
-
-// module.exports = {
-//         ...postResolvers.Query
-// }

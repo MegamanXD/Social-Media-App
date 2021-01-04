@@ -1,5 +1,5 @@
 // 0.1. Declaring all dependency imports
-import ReactDOM from 'react-dom';       // ReactJD DOM
+import ReactDOM from 'react-dom';       // ReactJS DOM
 // Note: The Document Object Model (DOM) is a programming interface for HTML and XML documents
 // It allows programs to change the document structure, style, and content so that the website is dynamic
 

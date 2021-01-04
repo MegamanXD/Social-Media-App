@@ -1,12 +1,17 @@
 // 0.1. Declaring all dependency imports
 import React from 'react'
-import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql';
-import GET_POST from '../services/posts.js'
+import { useQuery } from '@apollo/client';
+
+// 0.2. Declaring all file imports
+import { GET_ALL_POST } from '../services/posts.js'
 
 function Home() {
     // 1. Pre-processing
-        // None
+    const { data } = useQuery(GET_ALL_POST)
+    if (data) {
+        const posts = data.getPosts;
+        console.log(posts)
+    }
     
     // 2. Define how the component looks like
     return (
