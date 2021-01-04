@@ -1,5 +1,8 @@
 // 0.1. Declaring all dependency imports
 import React from 'react'
+import { useQuery } from '@apollo/react-hooks';
+import gql from 'graphql';
+import GET_POST from '../services/posts.js'
 
 function Home() {
     // 1. Pre-processing

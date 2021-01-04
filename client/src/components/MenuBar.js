@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';      // ReactJS doesn't have href, so w
 
 function MenuBar() {
   // 1. Pre-processing
-  // 1.1. Define the states and event-handlers of the component
-  const [activeItem, setActiveItem] = useState(path);
-  const handleItemClick = (e, { name }) => setActiveItem(name);
-
-  // 1.2. Process the current path
+  // 1.1. Define the states of the component
   const pathname = window.location.pathname;
   const path = pathname.substr(1);
+  const [activeItem, setActiveItem] = useState(path);
+
+  // 1.2. Define event-handlers of the component
+  const handleItemClick = (e, { name }) => setActiveItem(name);
 
   // 1.3. Define the template of each MenuItem
   class MenuItem extends React.Component {
