@@ -6,7 +6,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import App from './App.js';
 
 // 1. Define the GraphQL engine to be used
-const client = new ApolloClient({
+const graphQL = new ApolloClient({
   uri: 'http://localhost:5000',
   cache: new InMemoryCache()
 });
@@ -14,7 +14,7 @@ const client = new ApolloClient({
 // 2. Put the ReactJS app inside the GraphQL data provider
 // This enables the ReactJS app to use data from GraphQL backend
 export default (
-  <ApolloProvider client={client}>
+  <ApolloProvider client={graphQL}>
     <App/>
   </ApolloProvider>
 );
