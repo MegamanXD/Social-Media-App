@@ -1,8 +1,11 @@
 // 0.1. Declaring all dependency imports
 import React from 'react'
 
-// 1. Define how the website looks like
 function Register() {
+    // 1. Pre-processing
+        // None
+    
+    // 2. Define how the component looks like
     return (
         <div>
             <h1>Register page</h1>
@@ -10,5 +13,5 @@ function Register() {
     )
 }
 
-// 2. Export the component for later use
+// 3. Export the component for later use
 export default Register;

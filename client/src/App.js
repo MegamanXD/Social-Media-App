@@ -1,5 +1,5 @@
 // 0.1. Declaring all dependency imports
-import { BrowserRouter as Router, Route } from 'react-router-dom';    // Help change the page layout based on which page you are on
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';    // Help change the page layout based on which page you are on
 import { Container } from 'semantic-ui-react';    // Semantic UI built-in Container
 
 // 0.2. Declaring all file imports
@@ -23,8 +23,11 @@ function App() {
         {/* The menu bar is shown at the top no matter which page your are on */}
         <MenuBar />
 
-        {/* The body is loaded according to which page you are at */}
-        <Route exact path="/" component={Home} />
+        {/* The body is loaded according to which page you are on */}
+        <Route exact path="/">
+          <Redirect to="/home" />
+        </Route>
+        <Route exact path="/home" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
 
